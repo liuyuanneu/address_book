@@ -5,7 +5,7 @@ import ContacList from './ContactList';
 
 function Home() {
     return (
-        <div>
+        <div className="homeContainer">
             <SearchBar />
             <ContacList />
         </div>
