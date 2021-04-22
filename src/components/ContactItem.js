@@ -8,6 +8,7 @@ function ContacItem({contact}) {
     return(
         <div className="contactContainer">
             <img 
+                className="avatar"
                 alt={contact.name.first} 
                 src={contact.picture.large}
             />

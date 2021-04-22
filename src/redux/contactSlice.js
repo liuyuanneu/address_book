@@ -6,15 +6,15 @@ const initialState = {
     amount:50,
     filteredUsers: [],
     status: 'idle',
+    query:'',
     error: null,
-    query: '',
     firstNameOrder: 'desc',
     lastNameOrder: 'desc',
 };
 
 export const fetchContacts = createAsyncThunk(
     'contact/fetchContacts',
-    async () => {
+    async (state) => {
         let amount = initialState.amount;
         const response = await axios.get(`https://randomuser.me/api/?results=${amount}`)
         return response.data.results;
@@ -26,16 +26,16 @@ export const contactSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-      searchContact: (state) => {
-        //TODO: use full search later;
-        //search by name
-        let query = state.contact.query.toLowerCase();
-        state.filteredUsers = state.users.filter((person) => {
-            let first = person.name.first.toLowerCase();
-            let last = person.name.last.toLowerCase();
-            return first.includes(query) || last.includes(query);
-        })
-      },
+        searchContact: (state,action) => {
+            //TODO: use full search later;
+            //search by name
+            let query = action.payload.toLowerCase();
+            state.filteredUsers = state.users.filter((person) => {
+                let first = person.name.first.toLowerCase();
+                let last = person.name.last.toLowerCase();
+                return first.includes(query) || last.includes(query);
+            })
+        },
       
     },
     // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -48,9 +48,11 @@ export const contactSlice = createSlice({
           state.status = 'succeeded'
           // Add any fetched posts to the array
           state.users = state.users.concat(action.payload)
+          state.filteredUsers = state.users;
         },
         [fetchContacts.rejected]: (state, action) => {
           state.status = 'failed'
+          //console.log(action.payload)
           state.error = action.error.message
         }
       }
@@ -61,7 +63,7 @@ export const contactSlice = createSlice({
   // The function below is called a selector and allows us to select a value from
   // the state. Selectors can also be defined inline where they're used instead of
   // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-  export const selectContacts = (state) => state.contact.users;
+  export const selectContacts = (state) => state.contact.filteredUsers;
   
   // We can also write thunks by hand, which may contain both sync and async logic.
   // Here's an example of conditionally dispatching actions based on current state.

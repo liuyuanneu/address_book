@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { searchContact } from '../redux/contactSlice';
+
 
 
 function SearchBar(props){
+    const [searchInput, setSearchInput] = useState('');
+    const dispatch = useDispatch();
+    const handleSearchInput = (e) => {
+        setSearchInput(e.target.value);
+        dispatch(searchContact(e.target.value));
+    }
     return(
-        <div>
+        <div className="searchContainer">
             <input
-                //onChange={evt => handleSearchInput(evt)}
-                //value={}
-                className="input-group-field"
+                onChange={e => handleSearchInput(e)}
+                value={searchInput}
+                className="search"
                 type="search"
                 placeholder="Search..."
-                
+                autoFocus
             />
         </div>
     )
