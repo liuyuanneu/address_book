@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+
+.contactContainer {
+  display: flex;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #fefefe;
+  color: #0a0a0a;
+  padding: 20px;
+  flex-direction: row;
+  align-items: center;
+}
+.avatar {
+  width: auto
+}
