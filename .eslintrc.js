@@ -37,6 +37,7 @@ module.exports = {
     'testing-library/no-dom-import': 'off',
     'react/jsx-filename-extension': [0],
     'import/extensions': 'off',
+    'react/no-array-index-key': 'off',
 
   },
   settings: {

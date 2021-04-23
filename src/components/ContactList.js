@@ -22,7 +22,7 @@ function ContactList() {
     if (status === 'idle') {
       dispatch(fetchContacts(amount));
     }
-  }, [status, dispatch]);
+  }, [status, dispatch, amount]);
 
   const lastContactRef = useCallback((node) => {
     if (status === 'loading') return;

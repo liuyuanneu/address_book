@@ -51,7 +51,7 @@ function ContactDetail() {
                   </div>
                 ) : (
                   <div>
-                    <p>This contact doesn not exist. </p>
+                    <p>This contact does not exist. </p>
                   </div>
                 )
         }
