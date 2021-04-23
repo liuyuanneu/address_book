@@ -13,6 +13,7 @@ function ContactList() {
   const contacts = useSelector(selectContacts);
   const filteredContacts = useSelector(filterContacts);
   const status = useSelector((state) => state.contact.status);
+  const query = useSelector((state) => state.contact.query);
   const error = useSelector((state) => state.contact.error);
   const amount = useSelector((state) => state.contact.amount);
 
@@ -36,11 +37,21 @@ function ContactList() {
   return (
     <div className="listContainer">
       {
-        filteredContacts.length > 0 ? filteredContacts.map((person, i) => (
-          <div className="wrapper" key={i}>
-            <ContacItem key={i} contact={person} />
-          </div>
-        ))
+        query.length > 0
+          ? (
+            <>
+              {
+                filteredContacts.length > 0
+                  ? filteredContacts.map((person, i) => (
+
+                    <div className="wrapper" key={i}>
+                      <ContacItem key={i} contact={person} />
+                    </div>
+                  ))
+                  : <div className="filterMessage">{`There is no such contact called ${query}.`}</div>
+              }
+            </>
+          )
           : (
             <>
               {
@@ -50,7 +61,7 @@ function ContactList() {
                   }
                   return <div className="wrapper" key={i}><ContacItem key={i} contact={person} /></div>;
                 })
-            }
+              }
             </>
           )
         }
