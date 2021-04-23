@@ -1,60 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 
 import ContacItem from './ContactItem';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { 
     selectContacts, 
-    fetchContacts 
+    fetchContacts,
+    filterContacts,
 } from '../redux/contactSlice';
 
 
 function ContactList(){
+    const observer = useRef()
     const dispatch = useDispatch();
     const contacts = useSelector(selectContacts);
+    const filteredContacts = useSelector(filterContacts);
     const status = useSelector(state => state.contact.status);
     const error = useSelector(state => state.contact.error);
+    const amount = useSelector(state => state.contact.amount)
+
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchContacts())
+            dispatch(fetchContacts(amount))
         }
     }, [status, dispatch])
 
-    
-    switch(status) {
-        case 'failed':
-            return <div>{error}</div>
-        case 'loading':
-            return <p>Loading...</p>
-        default:
-            return <div className="listContainer">
-                {
-                    contacts.map((person,i) => 
-                    <ContacItem 
-                        key={i} 
-                        contact={person}
-                    />)
-                }
+    const lastContactRef = useCallback(node => {
+        if (status === 'loading') return
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                dispatch(fetchContacts(amount));
+            }
+        },[]);
+        if (node) observer.current.observe(node)
+    })
+
+    return (
+        <div className="listContainer">
             
-            </div>
-    }
-    
-    
-    // return(
-    //     <div className="listContainer">
-    //         {
-    //             status === 'failed' ? 
-    //             <div>{error}</div>:
-    //             <div>
-    //             {
-    //                 contacts.length > 0 ? 
-    //                 :<p>Loading...</p>
-    //             }
-    //             </div>
-    //         }
+            {
+                filteredContacts.length > 0 ? filteredContacts.map((person,i) => 
+                    <div className="wrapper" key={i}>
+                        <ContacItem key={i} contact={person} />
+                    </div>
+                ): 
+                <>
+                    {
+                        contacts.map((person,i) =>{
+                            if(i === contacts.length-1){
+                                return <div className="wrapper" ref={lastContactRef} key={i} ><ContacItem  contact={person}/></div>
+                            }else{
+                                return <div className="wrapper" key={i}><ContacItem key={i} contact={person} /></div>
+                            }
+                        })
+                    }
+                </>
+            }
+            <div>{status === 'loading' && 'Loading...'}</div>
+            <div>{error && 'Error'}</div>
             
-    //     </div>
-    // )
+        </div>
+    )
 }
 
 export default ContactList;

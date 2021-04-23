@@ -59,9 +59,13 @@
   align-items: center;
 }
 
+.wrapper {
+  display: block;
+  width: 70%;
+}
+
 .contactContainer {
   display: flex;
-  width: 70%;
   margin-bottom:20px;
   background: linear-gradient(.25turn, rgb(247, 236, 236), 10%, rgb(248, 232, 217));
   padding: 20px;
