@@ -24,8 +24,8 @@ export const contactSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    fetchMore: (state) => {
-      state.amount += 50;
+    getQuery: (state, action) => {
+      state.query = action.payload;
     },
     searchContact: (state, action) => {
       // search by name
@@ -60,7 +60,7 @@ export const contactSlice = createSlice({
   },
 });
 
-export const { searchContact, fetchMore } = contactSlice.actions;
+export const { searchContact, getQuery } = contactSlice.actions;
 
 export const selectContacts = (state) => state.contact.users;
 export const filterContacts = (state) => state.contact.filteredUsers;

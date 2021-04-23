@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { searchContact } from '../redux/contactSlice';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchContact, getQuery } from '../redux/contactSlice';
 
 function SearchBar() {
-  const [searchInput, setSearchInput] = useState('');
+  const searchInput = useSelector((state) => state.contact.query);
   const dispatch = useDispatch();
   const handleSearchInput = (e) => {
-    setSearchInput(e.target.value);
     dispatch(searchContact(e.target.value));
+    dispatch(getQuery(e.target.value));
   };
   return (
     <div className="searchContainer">
