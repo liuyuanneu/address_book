@@ -1,22 +1,26 @@
 import React from 'react';
 
-import Avatar from '@material-ui/core/Avatar';
-
-
+import { useHistory } from "react-router-dom"; 
 
 function ContacItem({contact}) {
+    const history = useHistory();
+    const userName = contact.name.first + contact.name.last;
+    const handleRedirect = () => {
+        history.push(`/${userName}`,[contact]);
+    }
     return(
-        <div className="contactContainer">
+        <div 
+            className="contactContainer"
+            onClick={handleRedirect}
+        >
             <img 
                 className="avatar"
                 alt={contact.name.first} 
                 src={contact.picture.large}
             />
             <div className="contactDetail">
-                <div>
-                    <p>{contact.name.first}</p>
-                    <p>{contact.name.last}</p>
-                    
+                <div className="contactName">
+                {contact.name.first + ' '+ contact.name.last}
                 </div>
             </div>
  

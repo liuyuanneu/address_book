@@ -37,7 +37,7 @@
   }
 }
 .homeContainer {
- 
+ margin-top: 20px;
 }
 
 .searchContainer {
@@ -53,9 +53,6 @@
   padding: 10px
 }
 
-.search ::placeholder {
-  margin-left: 15px;
-}
 .listContainer {
   display: flex;
   flex-direction: column;
@@ -78,4 +75,41 @@
   height: 15%;
   border-radius: 50%;
   border: 1px solid #cacaca;
+}
+
+.contactName {
+  margin-left: 10px;
+}
+
+
+.cardContainer {
+  background-color: #fefefe;
+  margin: 10px;
+  padding: 10px
+}
+
+.cardImage{
+  display: block;
+}
+
+.cardImage :hover {
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.cardText {
+  padding: 10px;
+  text-align: center;
+}
+
+.location {
+  display: inline-block;
+  margin: 10px;
+  font-size: 15px
+}
+
+.card-user-container .card-user-button {
+  text-align: center;
+  padding: 1rem;
 }
