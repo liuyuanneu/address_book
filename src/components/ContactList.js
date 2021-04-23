@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import ContacItem from './ContactItem';
-
 import {
   selectContacts,
   fetchContacts,
@@ -37,29 +35,27 @@ function ContactList() {
 
   return (
     <div className="listContainer">
-
       {
-                filteredContacts.length > 0 ? filteredContacts.map((person, i) => (
-                  <div className="wrapper" key={i}>
-                    <ContacItem key={i} contact={person} />
-                  </div>
-                ))
-                  : (
-                    <>
-                      {
-                        contacts.map((person, i) => {
-                          if (i === contacts.length - 1) {
-                            return <div className="wrapper" ref={lastContactRef} key={i}><ContacItem contact={person} /></div>;
-                          }
-                          return <div className="wrapper" key={i}><ContacItem key={i} contact={person} /></div>;
-                        })
-                    }
-                    </>
-                  )
+        filteredContacts.length > 0 ? filteredContacts.map((person, i) => (
+          <div className="wrapper" key={i}>
+            <ContacItem key={i} contact={person} />
+          </div>
+        ))
+          : (
+            <>
+              {
+                contacts.map((person, i) => {
+                  if (i === contacts.length - 1) {
+                    return <div className="wrapper" ref={lastContactRef} key={i}><ContacItem contact={person} /></div>;
+                  }
+                  return <div className="wrapper" key={i}><ContacItem key={i} contact={person} /></div>;
+                })
             }
+            </>
+          )
+        }
       <div>{status === 'loading' && 'Loading...'}</div>
       <div>{error && 'Error'}</div>
-
     </div>
   );
 }

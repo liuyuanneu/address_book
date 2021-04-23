@@ -28,7 +28,6 @@ export const contactSlice = createSlice({
       state.amount += 50;
     },
     searchContact: (state, action) => {
-      // TODO: use full search later;
       // search by name
       const query = action.payload.toLowerCase();
       if (query.length === 0) {
@@ -51,7 +50,7 @@ export const contactSlice = createSlice({
     },
     [fetchContacts.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      // Add any fetched posts to the array
+      // Add any fetched data to the array
       state.users = state.users.concat(action.payload);
     },
     [fetchContacts.rejected]: (state, action) => {
@@ -63,19 +62,7 @@ export const contactSlice = createSlice({
 
 export const { searchContact, fetchMore } = contactSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectContacts = (state) => state.contact.users;
 export const filterContacts = (state) => state.contact.filteredUsers;
-
-// We can also write thunks by hand, which may contain both sync and async logic.
-// Here's an example of conditionally dispatching actions based on current state.
-//   export const incrementIfOdd = (amount) => (dispatch, getState) => {
-//     const currentValue = selectCount(getState());
-//     if (currentValue % 2 === 1) {
-//       dispatch(incrementByAmount(amount));
-//     }
-//   };
 
 export default contactSlice.reducer;
