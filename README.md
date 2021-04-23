@@ -1,12 +1,12 @@
-# Getting Started with Create React App
+# Adress_Book
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to run
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,18 +14,27 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+#### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project use React-Router BrowserRouter which is not supported when deploy to Github page. You can choose Heroku or Firebase to serve this project. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Main features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project shows a list of contacts. The main feature is:
+* List 10 contatcts initially; 
+* Search by name, not case-sensitive, then shows a list of matched contacs;
+* Click each contact to see contact detail information;
+* Infinit scroll, when scroll to bottom of the list, automatically add more contact in the end;
 
+
+### ToDos
+
+* Add more styling to the page;
+* Github page doesn't support Browserrouter, maybe try Hashrouter later;
+* Add Navigation to the page;
+* Use full search instead of hard coded fillter method; 
+* Use axios cancel to avoid multipul request from API;
